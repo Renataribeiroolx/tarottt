@@ -189,29 +189,16 @@ body {
   width: var(--card-width);
   height: var(--card-height);
   position: relative;
-  transform-style: preserve-3d;
-  transition: transform 1s;
-}
-
-.card-back,
-.card-front {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.card-back {
-  background-color: #000;
 }
 
 .card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 /* Revealed Card */
