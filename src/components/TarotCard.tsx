@@ -17,17 +17,24 @@ const TarotCard: React.FC<TarotCardProps> = ({ card, index, total, onSelect }) =
   
   // Calculando posição no semicírculo
   const calculatePosition = () => {
-    // Ângulo total do semicírculo (em radianos)
+    // Ângulo total do semicírculo (180 graus em radianos)
     const totalAngle = Math.PI;
     
     // Ângulo para esta carta específica
-    const angle = totalAngle * (index / (total - 1));
+    const angle = (index / (total - 1)) * totalAngle;
     
-    // Calcular a transformação CSS
-    const rotateAngle = -90 + (angle * (180 / Math.PI));
+    // Raio do semicírculo (ajustado para melhor visualização)
+    const radius = 300;
+    
+    // Calcular posição X e Y
+    const x = Math.cos(angle - totalAngle / 2) * radius;
+    const y = Math.sin(angle - totalAngle / 2) * radius;
+    
+    // Calcular rotação
+    const rotation = (angle * (180 / Math.PI)) - 90;
     
     return {
-      transform: `rotate(${rotateAngle}deg) translateX(${50 + index}px)`,
+      transform: `translate(${x}px, ${y}px) rotate(${rotation}deg)`,
     };
   };
 
