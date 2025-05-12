@@ -40,14 +40,12 @@ const TarotCard: React.FC<TarotCardProps> = ({ card, index, total, onSelect }) =
       onClick={onSelect}
     >
       <div className="tarot-card">
-        <div className="card-back">
-          <img
-            src={card.backImageUrl}
-            alt="Verso da carta de Tarot"
-            className="card-image"
-            loading="lazy"
-          />
-        </div>
+        <img
+          src={card.backImageUrl}
+          alt="Verso da carta de Tarot"
+          className="card-image"
+          loading="lazy"
+        />
       </div>
     </div>
   );
