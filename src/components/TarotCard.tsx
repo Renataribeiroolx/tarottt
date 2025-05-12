@@ -16,20 +16,27 @@ const TarotCard: React.FC<TarotCardProps> = ({ card, index, total, onSelect }) =
   const [isHovered, setIsHovered] = useState(false);
   
   const calculatePosition = () => {
-    // Calcular o deslocamento horizontal entre as cartas
-    const spacing = 30; // Espaçamento entre as cartas em pixels
-    const totalWidth = spacing * (total - 1);
-    const startX = -totalWidth / 2;
+    // Ângulo total do arco (em graus)
+    const arcAngle = 60; // Reduzido para um arco mais suave
     
-    // Calcular a posição X desta carta
-    const x = startX + (index * spacing);
+    // Converter para radianos
+    const angleInRadians = (arcAngle * Math.PI) / 180;
     
-    // Calcular a rotação suave
-    const maxRotation = 20; // Ângulo máximo de rotação
-    const rotation = (index / (total - 1) - 0.5) * maxRotation;
+    // Calcular o ângulo para esta carta
+    const cardAngle = (index / (total - 1) - 0.5) * angleInRadians;
+    
+    // Raio do arco
+    const radius = window.innerWidth < 768 ? 400 : 600;
+    
+    // Calcular posições X e Y usando funções trigonométricas
+    const x = Math.sin(cardAngle) * radius;
+    const y = (1 - Math.cos(cardAngle)) * (radius / 3);
+    
+    // Calcular a rotação da carta
+    const rotation = (cardAngle * 180) / Math.PI;
     
     return {
-      transform: `translateX(${x}px) rotate(${rotation}deg)`,
+      transform: `translate(${x}px, ${y}px) rotate(${rotation}deg)`,
       zIndex: index,
     };
   };
