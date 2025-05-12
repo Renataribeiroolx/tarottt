@@ -15,26 +15,22 @@ interface TarotCardProps {
 const TarotCard: React.FC<TarotCardProps> = ({ card, index, total, onSelect }) => {
   const [isHovered, setIsHovered] = useState(false);
   
-  // Calculando posição no semicírculo
   const calculatePosition = () => {
-    // Ângulo total do semicírculo (180 graus em radianos)
-    const totalAngle = Math.PI;
+    // Calcular o deslocamento horizontal entre as cartas
+    const spacing = 30; // Espaçamento entre as cartas em pixels
+    const totalWidth = spacing * (total - 1);
+    const startX = -totalWidth / 2;
     
-    // Ângulo para esta carta específica
-    const angle = (index / (total - 1)) * totalAngle;
+    // Calcular a posição X desta carta
+    const x = startX + (index * spacing);
     
-    // Raio do semicírculo (ajustado para melhor visualização)
-    const radius = 300;
-    
-    // Calcular posição X e Y
-    const x = Math.cos(angle - totalAngle / 2) * radius;
-    const y = Math.sin(angle - totalAngle / 2) * radius;
-    
-    // Calcular rotação
-    const rotation = (angle * (180 / Math.PI)) - 90;
+    // Calcular a rotação suave
+    const maxRotation = 20; // Ângulo máximo de rotação
+    const rotation = (index / (total - 1) - 0.5) * maxRotation;
     
     return {
-      transform: `translate(${x}px, ${y}px) rotate(${rotation}deg)`,
+      transform: `translateX(${x}px) rotate(${rotation}deg)`,
+      zIndex: index,
     };
   };
 
